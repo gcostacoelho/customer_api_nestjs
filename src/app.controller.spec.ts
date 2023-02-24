@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+/*import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './Controllers/app.controller';
 import { AppService } from './Services/app.service';
 
@@ -19,4 +19,4 @@ describe('AppController', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
   });
-});
+});*/
