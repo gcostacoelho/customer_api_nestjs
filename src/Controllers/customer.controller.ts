@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Put } from "@nestjs/common";
+import { 
+    Controller, 
+    Get, 
+    Post, 
+    Put, 
+    Req 
+} from "@nestjs/common";
+import { Request } from 'express';
 import { CustomerService } from "src/Services/customer.service";
 
 @Controller('customers')
@@ -6,8 +13,8 @@ export class CustomerController {
     constructor(private readonly _customerService: CustomerService) { }
 
     @Post()
-    postNewCustomer() {
-        return this._customerService.Create();
+    async postNewCustomer(@Req() req: Request) {
+        return await this._customerService.Create();
     }
 
     @Get(':id')

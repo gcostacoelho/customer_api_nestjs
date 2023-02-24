@@ -1,17 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { response } from 'express';
+import { response, Request } from 'express';
 
 @Injectable()
 export class CustomerService {
-    Create(){
+
+    Create() {
         return response.status(201);
     }
 
-    Update(){
+    Update() {
         return response.status(200);
     }
 
-    Search(){
+    Search() {
         return response.status(200);
     }
 }
