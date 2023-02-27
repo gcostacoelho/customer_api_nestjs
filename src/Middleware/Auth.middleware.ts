@@ -6,27 +6,32 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
     async use(req: Request, res: Response, next: NextFunction) {
-        dotenv.config();
+        try {
+            dotenv.config();
 
-        const tokenSplited = req.headers.authorization.split(' ')[1];
+            const tokenSplited = req.headers.authorization.split(' ')[1];
+            const url = process.env.URL + "auth/realms/careers/protocol/openid-connect/token/introspect"
 
-        const body = new URLSearchParams({
-            token: tokenSplited,
-            client_secret: process.env.CLIENT_SECRET,
-            username: process.env.USERNAME,
-            client_id: process.env.CLIENT_ID
-        }).toString();
+            const body = new URLSearchParams({
+                token: tokenSplited,
+                client_secret: process.env.CLIENT_SECRET,
+                username: process.env.USERNAME,
+                client_id: process.env.CLIENT_ID
+            }).toString();
 
-        const { data } = await axios.post(process.env.URL, body, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+            const { data } = await axios.post(url, body, {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+
+            if (data.active) {
+                return next();
             }
-        })
 
-        if (!data.active) {
             return res.status(401).json();
+        } catch (error) {
+            return res.status(502).json("SSO Indisponivel")
         }
-
-        return next();
     }
 }
