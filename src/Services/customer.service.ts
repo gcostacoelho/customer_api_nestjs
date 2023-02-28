@@ -8,24 +8,27 @@ export class CustomerService {
 
     async Create(request, response) {
         try {
-            const customer: Customer = new Customer();
 
-            const id = uuidv4();
-            const document = customer.validDocument(request.body.document);
-            const name = request.body.name;
+            let id = uuidv4();
+            let document = request.body.document;
+            let name = request.body.name;
 
-            if (document === ''){
+            if (RegExp(/[a-z]|[-.]/gmi).test(document) || name == '') {
                 return response.status(HttpStatus.BAD_REQUEST).json("request inválida");
             }
 
-            const resp = {
-                id, document, name
-            }
+            const customer: Customer = new Customer(id, document, name);
 
-            await redis.hmset(id, {
-                document,
-                name
-            })
+            const resp = {
+                "id": customer.id,
+                "document": customer.document,
+                "name": customer.name
+            };
+
+            await redis.hmset(customer.id, {
+                "document": customer.document,
+                "name": customer.name
+            });
 
             return response.status(HttpStatus.CREATED).json(resp);
         } catch (error) {
