@@ -25,22 +25,29 @@ export class CustomerService {
                 "name": customer.name
             };
 
-            await redis.hmset(customer.id, {
+            const data = {
                 "document": customer.document,
                 "name": customer.name
-            });
+            }
+
+            await redis.set(customer.id, JSON.stringify(data));
 
             return response.status(HttpStatus.CREATED).json(resp);
         } catch (error) {
-            response.status(HttpStatus.FORBIDDEN).json();
+            return response.status(HttpStatus.FORBIDDEN).json();
         }
     }
 
-    Update() {
-        // return response.status(200);
+    Update(request, response) {
+
     }
 
-    Search() {
-        // return response.status(200);
+    async Search(request, response) {
+        let id = request.params.id
+
+        let customer = await redis.get(id);
+        const customerParsed = JSON.parse(customer)
+
+        return response.status(HttpStatus.OK).json(customerParsed);
     }
 }

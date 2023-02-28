@@ -1,6 +1,7 @@
 import { 
     Controller, 
     Get, 
+    Param, 
     Post, 
     Put, 
     Req, 
@@ -19,12 +20,12 @@ export class CustomerController {
     }
 
     @Get(':id')
-    getCustomerId() {
-        return this._customerService.Search();
+    getCustomerId(@Req() req: Request, @Res() resp: Response) {
+        return this._customerService.Search(req, resp);
     }
 
     @Put(':id')
-    putCustomer() {
-        return this._customerService.Update();
+    putCustomer(@Req() req: Request, @Res() resp: Response) {
+        return this._customerService.Update(req, resp);
     }
 }
