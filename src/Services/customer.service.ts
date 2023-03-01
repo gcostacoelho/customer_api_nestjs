@@ -2,7 +2,6 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
 import { redis } from 'src/Database/RedisConfig';
 import { Customer } from "src/Model/Customer";
-import axios from 'axios';
 
 @Injectable()
 export class CustomerService {
@@ -52,7 +51,7 @@ export class CustomerService {
 
         if (customerParsed.document != body.document) {
             if (RegExp(/[a-z]|[-.]/gmi).test(body.document)) {
-
+                return response.status(HttpStatus.BAD_REQUEST).json("request inválida");
             } else {
                 customerParsed.document = body.document;
             }
@@ -84,7 +83,7 @@ export class CustomerService {
             return response.status(HttpStatus.NOT_FOUND).json("cliente inexistente")
         }
 
-        const customerParsed = JSON.parse(customer)
+        const customerParsed = JSON.parse(customer);
 
         return response.status(HttpStatus.OK).json(customerParsed);
     }
