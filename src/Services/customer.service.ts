@@ -45,7 +45,7 @@ export class CustomerService {
         let customerId = await redis.get(id);
 
         if (customerId == null) {
-            return response.status(HttpStatus.BAD_REQUEST).json("cliente inexistente")
+            return response.status(HttpStatus.NOT_FOUND).json("cliente inexistente")
         }
 
         const customerParsed = JSON.parse(customerId);
@@ -57,7 +57,7 @@ export class CustomerService {
                 customerParsed.document = body.document;
             }
         }
-        
+
         if (customerParsed.name != body.name) {
             if (body.name == '') {
                 return response.status(HttpStatus.BAD_REQUEST).json("request inválida");
@@ -79,6 +79,10 @@ export class CustomerService {
     async Search(request, response) {
         let id = request.params.id;
         let customer = await redis.get(id);
+
+        if (customer == null) {
+            return response.status(HttpStatus.NOT_FOUND).json("cliente inexistente")
+        }
 
         const customerParsed = JSON.parse(customer)
 
