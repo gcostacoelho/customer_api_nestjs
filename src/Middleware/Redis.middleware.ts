@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { redis } from 'src/Database/RedisConfig';
+import { redis } from '../Database/RedisConfig';
 
 @Injectable()
 export class RedisMiddleware implements NestMiddleware {

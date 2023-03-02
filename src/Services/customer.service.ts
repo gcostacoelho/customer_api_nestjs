@@ -1,15 +1,15 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-import { redis } from 'src/Database/RedisConfig';
-import { Customer } from "src/Model/Customer";
+import { redis } from '../Database/RedisConfig';
+import { Customer } from "../Model/Customer";
 
 @Injectable()
-export class CustomerService {
+export class CustomerService  {
 
     async Create(request, response) {
         try {
 
-            let id = uuidv4();
+            const id = "customer:" + uuidv4();
             let document = request.body.document;
             let name = request.body.name;
 

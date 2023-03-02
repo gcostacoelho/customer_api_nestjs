@@ -1,20 +1,19 @@
 import { 
     Controller, 
     Get, 
-    Param, 
     Post, 
     Put, 
     Req, 
     Res
 } from "@nestjs/common";
 import { Request, Response} from 'express';
-import { CustomerService } from "src/Services/customer.service";
+import { CustomerService } from "../Services/customer.service";
 
-@Controller('customers')
+@Controller('api/customers')
 export class CustomerController {
     constructor(private readonly _customerService: CustomerService) { }
 
-    @Post()
+    @Post("create")
     async postNewCustomer(@Req() req: Request, @Res() resp: Response) {
         return await this._customerService.Create(req, resp)
     }

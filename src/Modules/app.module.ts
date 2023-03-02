@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AuthMiddleware } from 'src/Middleware/Auth.middleware';
-import { RedisMiddleware } from 'src/Middleware/Redis.middleware';
+import { AuthMiddleware } from '../Middleware/Auth.middleware';
+import { RedisMiddleware } from '../Middleware/Redis.middleware';
 import { CustomerController } from '../Controllers/customer.controller';
 import { CustomerService } from "../Services/customer.service";
 
