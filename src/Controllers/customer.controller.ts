@@ -9,7 +9,7 @@ import {
 import { Request, Response} from 'express';
 import { CustomerService } from "../Services/customer.service";
 
-@Controller('api/customers')
+@Controller('customers')
 export class CustomerController {
     constructor(private readonly _customerService: CustomerService) { }
 
@@ -23,7 +23,7 @@ export class CustomerController {
         return this._customerService.Search(req, resp);
     }
 
-    @Put(':id')
+    @Put('put/:id')
     putCustomer(@Req() req: Request, @Res() resp: Response) {
         return this._customerService.Update(req, resp);
     }

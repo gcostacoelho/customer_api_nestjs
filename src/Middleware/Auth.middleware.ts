@@ -25,7 +25,7 @@ export class AuthMiddleware implements NestMiddleware {
                 }
             })
 
-            if (data.active) {
+            if (data.active) {                
                 return next();
             }
 
