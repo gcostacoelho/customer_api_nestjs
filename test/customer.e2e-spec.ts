@@ -5,7 +5,6 @@ import * as dotenv from 'dotenv';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import * as request from 'supertest';
-import { Customer } from '../src/Model/Customer';
 
 describe('CustomerController e2e test', () => {
     let app: INestApplication;
@@ -84,7 +83,6 @@ describe('CustomerController e2e test', () => {
     });
 
     afterAll(() => {
-        console.log(idTest);
-        
+        console.log(idTest); // This line displays the id of the tests to query in the postman
     })
 });
