@@ -6,12 +6,12 @@ import { Customer } from "../Model/Customer";
 @Injectable()
 export class CustomerService  {
 
-    async Create(request, response) {
+    async Create(body, response) {
         try {
 
             const id = "customer:" + uuidv4();
-            let document = request.body.document;
-            let name = request.body.name;
+            let document = body.document;
+            let name = body.name;
 
             if (RegExp(/[a-z]|[-.]/gmi).test(document) || name == '') {
                 return response.status(HttpStatus.BAD_REQUEST).json("request inválida");
@@ -31,7 +31,7 @@ export class CustomerService  {
             }
 
             await redis.set(customer.id, JSON.stringify(data));
-
+            
             return response.status(HttpStatus.CREATED).json(resp);
         } catch (error) {
             return response.status(HttpStatus.FORBIDDEN).json();

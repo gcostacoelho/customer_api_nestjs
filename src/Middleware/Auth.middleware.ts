@@ -29,7 +29,7 @@ export class AuthMiddleware implements NestMiddleware {
                 return next();
             }
 
-            return res.status(401).json();
+            return res.status(401).json("não autorizado");
         } catch (error) {
             return res.status(502).json("SSO Indisponivel")
         }
