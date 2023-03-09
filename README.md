@@ -1,6 +1,10 @@
 # Customer Rest API
 
-Criação de uma Rest API utilizando o Framework NestJS para a construção, juntamente com o Jest para a criação dos testes da aplicação
+Criação de uma Rest API utilizando o Framework NestJS para a construção, juntamente com o Jest para a criação dos testes da aplicação.
+
+## Pré-requisitos
+- [Node.js](https://nodejs.org/en/) instalado;
+- [Redis](https://redis.io/) instalado;
 
 ## Endpoints
 
@@ -62,10 +66,6 @@ Criação de uma Rest API utilizando o Framework NestJS para a construção, jun
             </td>
         </tr>
     </table>
-
-## Pré-requisitos
-- [Node.js](https://nodejs.org/en/) instalado;
-- [Redis](https://redis.io/) instalado;
 
 ## Instalação do Redis no Docker
 
