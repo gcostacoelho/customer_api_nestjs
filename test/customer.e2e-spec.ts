@@ -38,7 +38,7 @@ describe('CustomerController e2e test', () => {
             { active: true }
         );
 
-        const resp = await request(app.getHttpServer()).post('/customers/create')
+        const resp = await request(app.getHttpServer()).post('/customers')
             .set('Authorization', "Bearer token")
             .send(customerData)
 
@@ -74,7 +74,7 @@ describe('CustomerController e2e test', () => {
         }
 
         const resp = await request(app.getHttpServer())
-            .put(`/customers/put/${idTest}`)
+            .put(`/customers/${idTest}`)
             .set('Authorization', "Bearer token")
             .send(customerPut)
 
