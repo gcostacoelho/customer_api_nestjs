@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes: 
+      - redis-cache:/data
+
+  customer-api:
+    container_name: customer-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - USERNAME=${USERNAME}
+      - CLIENT_ID=customers
+      - URL=https://accounts.seguros.vitta.com.br/
+    expose:
+      - '3000'
+    links:
+      - redis
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./test:/usr/src/app/test
+    depends_on:
+      - redis
+volumes:
+  redis-cache:
+    driver: local
