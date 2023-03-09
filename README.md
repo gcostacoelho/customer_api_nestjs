@@ -1,73 +1,128 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Customer Rest API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Criação de uma Rest API utilizando o Framework NestJS para a construção, juntamente com o Jest para a criação dos testes da aplicação
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Endpoints
 
-## Description
+**Os endpoints necessitam de um token Bearer válido**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- GET `customers/${id}`
 
-## Installation
+    <table border="1">
+        <tr>
+            <td>Header</td>
+            <td>
+                Content-Type: application/json
+                <br>
+                Authorization: Bearer token
+            </td>
+        </tr>
+        <tr>
+            <td>Request</td>
+            <td>N/A</td>
+        </tr>
+    </table>
+- POST `customers`
+    <table border="1">
+        <tr>
+            <td>Header</td>
+            <td>
+                Content-Type: application/json
+                <br>
+                Authorization: Bearer token
+            </td>
+        </tr>
+        <tr>
+            <td>Request</td>
+            <td>
+                {<br>
+                    "document": "&ltnumber&gt",<br>
+                    "name": "&ltstring&gt"<br>
+                }
+            </td>
+        </tr>
+    </table>
+- PUT `customers/${id}`
+    <table border="1">
+        <tr>
+            <td>Header</td>
+            <td>
+                Content-Type: application/json
+                <br>
+                Authorization: Bearer token
+            </td>
+        </tr>
+        <tr>
+            <td>Request</td>
+            <td>
+                {<br>
+                    "document": "&ltnumber&gt",<br>
+                    "name": "&ltstring&gt"<br>
+                }
+            </td>
+        </tr>
+    </table>
+
+## Pré-requisitos
+- [Node.js](https://nodejs.org/en/) instalado;
+- [Redis](https://redis.io/) instalado;
+
+## Instalação do Redis no Docker
 
 ```bash
-$ npm install
+$ docker pull redis
+$ docker run -d -p 6379:6379 redis
 ```
 
-## Running the app
+## Instalação
+
+Faça um clone do repositório no diretório que você preferir
 
 ```bash
-# development
-$ npm run start
+$ git clone https://github.com/gcostacoelho/customer_api_nestjs.git 
+```
 
-# watch mode
-$ npm run start:dev
+Após a conclusão da etapa anterior, entre no diretório criado pelo clone e instale os pacotes que são utilizados no programa
 
-# production mode
+```bash
+# Entra no diretório
+$ cd ./customer_api_nestjs/
+
+# Instala os pacotes usando a versão especificada no package.json
+$ npm ci 
+```
+
+Usando o arquivo ```.env.example``` copie o seu conteúdo e crie um arquivo ```.env``` para colar o seu conteúdo.
+
+Depois dos pacotes serem instalados e o arquivo ```.env``` ser criado a API já vai estar pronta para ser buildada e rodada localmente, para isso utilize os seguintes comandos:
+
+> Lembre-se de deixar o Redis rodando na porta onde foi setado.
+
+```bash
+# Builda a aplicação para o uso
+$ npm run build
+
+# Inicia a aplicação localmente na porta 3000
 $ npm run start:prod
 ```
 
-## Test
+## Utilizando Docker para rodar a aplicação
+
+Para rodar a aplicação conteinerizada, será necessário utilizar o ```docker-compose```, que pode ser instalado [aqui](https://docs.docker.com/compose/install/).
+
+Após a instalação rode o comando dentro do diretório onde está o projeto:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ docker-compose up -d
 ```
+Depois do comando terminar de criar a imagem e os containers, o projeto estará rodando no ```localhost:3000```
 
-## Support
+## Testes
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Para rodar os testes da aplicação utilize o seguinte comando dentro do terminal do container:
 
-## Stay in touch
+> Deixe a API rodando juntamente com o Redis
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+```bash
+$ npm run test:e2e
+```
